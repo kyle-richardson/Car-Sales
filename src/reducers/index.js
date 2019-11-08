@@ -20,12 +20,14 @@ const initialState = {
 export const rootReducer = (state = initialState, {type, payload})=> {
     switch (type) {
         case ADD_FEATURE:
+
             return {
                 ...state,
                 car: {
                     ...state.car,
                     features: [...state.car.features, payload]
-                }
+                },
+                additionalPrice: state.additionalPrice+payload.price
             }
         case REMOVE_FEATURE:
             return {
@@ -33,7 +35,8 @@ export const rootReducer = (state = initialState, {type, payload})=> {
                 car: {
                     ...state.car,
                     features: state.car.features.filter(ele => ele.id!==payload.id)
-                }
+                },
+                additionalPrice: state.additionalPrice-payload.price
             }
         default: 
             return state
