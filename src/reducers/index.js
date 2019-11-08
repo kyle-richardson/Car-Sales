@@ -20,14 +20,17 @@ const initialState = {
 export const rootReducer = (state = initialState, {type, payload})=> {
     switch (type) {
         case ADD_FEATURE:
-
+            let isDup = false
+            state.car.features.forEach(ele => {
+                if(ele.id ===payload.id) isDup=true
+            })
             return {
                 ...state,
                 car: {
                     ...state.car,
-                    features: [...state.car.features, payload]
+                    features: !isDup ? [...state.car.features, payload] : [...state.car.features]
                 },
-                additionalPrice: state.additionalPrice+payload.price
+                additionalPrice: !isDup ? state.additionalPrice+payload.price : state.additionalPrice
             }
         case REMOVE_FEATURE:
             return {
